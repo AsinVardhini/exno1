@@ -21,6 +21,8 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
+
+## Data Cleaning:
 ```
 import pandas as pd
 df=pd.read_csv("/content/SAMPLEIDS.csv")
@@ -67,6 +69,112 @@ df.describe()
 df.isnull()
 ```
 ![image](https://github.com/user-attachments/assets/3beca29a-7e2b-4dc9-9e4e-3af5a0c0f9b5)
+
+
+ ## IQR(Inter Quartile Range
+
+
+```
+import pandas as pd
+import seaborn as sns
+ir=pd.read_csv('/iris.csv')
+ir
+```
+![image](https://github.com/user-attachments/assets/27df9793-66fd-41f1-8447-c259380f1b64)
+
+```
+ir.describe()
+```
+![image](https://github.com/user-attachments/assets/4b0f12ed-512d-43fd-9430-12cb8087acf1)
+
+```
+sns.boxplot(x='sepal_width',data=ir)
+```
+![image](https://github.com/user-attachments/assets/3d552bf0-0072-461b-8699-9715d450550c)
+
+```
+c1=ir.sepal_width.quantile(0.25)
+c3=ir.sepal_width.quantile(0.75)
+iq=c3-c1
+print(c3)
+rid=ir[((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
+rid['sepal_width']
+```
+![image](https://github.com/user-attachments/assets/d306ab06-eaaa-437a-9078-a5a3ee85f0e1)
+
+```
+delid=ir[~((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
+delid
+```
+![image](https://github.com/user-attachments/assets/f60b9291-e4d9-4516-b293-b12b4e7d76ca)
+
+```
+sns.boxplot(x='sepal_width',data=delid)
+```
+![image](https://github.com/user-attachments/assets/8f7bd5cf-2b02-4421-ba80-3e499cb66ab4)
+
+ ## Z-Score:
+ 
+```
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+dataset=pd.read_csv("/heights.csv")
+dataset
+```
+![image](https://github.com/user-attachments/assets/39634bfe-6b09-4a4e-a283-42620a09ebe2)
+
+```
+df = pd.read_csv("/heights.csv")
+q1 = df['height'].quantile(0.25)
+q2 = df['height'].quantile(0.5)
+q3 = df['height'].quantile(0.75)
+iqr = q3-q1
+iqr
+```
+![image](https://github.com/user-attachments/assets/57942a64-e4a6-4863-a8f9-8b6236d32685)
+
+```
+low = q1 - 1.5*iqr
+low
+```
+![image](https://github.com/user-attachments/assets/6c21ef8f-4f2b-40a4-91ab-4bc670a13815)
+
+```
+high = q3 + 1.5*iqr
+high
+```
+![image](https://github.com/user-attachments/assets/44b2d42d-7eee-4205-81da-7411c8a62b98)
+
+```
+df1 = df[((df['height'] >=low)& (df['height'] <=high))]
+df1
+```
+![image](https://github.com/user-attachments/assets/71163a8f-ed64-4888-bc37-c7d979410fd2)
+
+```
+z = np.abs(stats.zscore(df['height']))
+z
+```
+![image](https://github.com/user-attachments/assets/bdac0db1-7b66-4b02-b0b2-c33bcb851925)
+
+```
+df1 = df[z<3]
+df1
+```
+![image](https://github.com/user-attachments/assets/9321744a-a2c0-4605-be62-a8adef168ac3)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
