@@ -71,7 +71,7 @@ df.isnull()
 ![image](https://github.com/user-attachments/assets/3beca29a-7e2b-4dc9-9e4e-3af5a0c0f9b5)
 
 
- ## IQR(Inter Quartile Range
+ ## IQR(Inter Quartile Range):
 
 
 ```
@@ -186,4 +186,4 @@ df1
 
 
 ## Result
-          <<include your Result here>>
+          Thus we have cleaned the data and removed the outliers by detection using IQR and Z-score method.
